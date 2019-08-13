@@ -1,4 +1,4 @@
-# Capital-Assets-CryptoDashboard
+# Assetz Capital CryptoDashboard
 
 This website indexes the top 100 cryptocurrencies using the Cryptocurrency API Listings Latest API of CoinMarketCap There is as well a Global Metrics API of CoinMarketCap
 
