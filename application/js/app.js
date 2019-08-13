@@ -1,6 +1,7 @@
 
 let quotes = "https://pro-api.coinmarketcap.com/v1/global-metrics/quotes/latest?CMC_PRO_API_KEY=8ccfe4e8-7cf1-4a84-9b2f-f0047b8d3365";
 let cryptocurrency = "https://pro-api.coinmarketcap.com/v1/cryptocurrency/listings/latest?CMC_PRO_API_KEY=8ccfe4e8-7cf1-4a84-9b2f-f0047b8d3365";
+
 // The amount of milliseconds (ms) after which we should update our currency
 // charts.
 let UPDATE_INTERVAL = 60 * 1000;
@@ -16,7 +17,33 @@ let app = new Vue({
      * Get the top 10 cryptocurrencies by value.  This data is refreshed each 5
      * minutes by the backing API service.
      */
+ /*
     getCoins: function() {
+      let self = this;
+      axios.get(cryptocurrency, {
+	  method: 'GET',
+	  qs: {
+	    'start': '1',
+	    'limit': '5000',
+	    'convert': 'USD'
+	  },
+	  headers: {
+	    'Access-Control-Allow-Origin': '*',
+	    'Content-Type': 'application/json',
+	  },
+	  json: true,
+	  gzip: true
+	})
+        .then((resp) => {
+          this.coins = resp.data.data;
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    },
+*/
+
+getCoins: function() {
       let self = this;
 
       axios.get(cryptocurrency)
