@@ -7,8 +7,65 @@
 </head>
 <body>
 
+<div class="container">
+<h1>Crypto Compare</h1>
+
+    <div class="row">
+      <div class="jumbotron col-xs-offset-2 col-xs-8">
+        <p>
+          This website indexes the top 100 cryptocurrencies using the Cryptocurrency API Listings Latest API of CoinMarketCap
+          There is as well a Global Metrics API of CoinMarketCap
+        </p>
+      </div>
+    </div>
+
+    <div id="app">
+    <p v-cloak v-if="quotes">
+		<span>Cryptocurrencies: <span>{{quotes.active_cryptocurrencies}}</span></span>
+		<span>Markets: <span>{{quotes.active_market_pairs}}</span></span>
+		<span>Market Cap: <span>$ {{quotes.quote.USD.total_market_cap}}</span></span>
+		<span>24h Vol: <span>$ {{quotes.quote.USD.total_volume_24h}}</span></span>
+		<span>BTC Dominance: <span>{{quotes.btc_dominance}} %</span></span>
+	</p>
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <td>Rank</td>
+            <td>Name</td>
+            <td>Symbol</td>
+            <td>Price (USD)</td>
+            <td>1H</td>
+            <td>1D</td>
+            <td>1W</td>
+            <td>Market Cap (USD)</td>
+        </thead>
+        <tbody>
+          <tr v-cloak v-for="coin in coins">
+            <td>{{ coin.cmc_rank }}</td>
+            <td>{{ coin.name }}</td>
+            <td>{{ coin.symbol }}</td>
+            <td>{{ coin.quote.USD.price}}</td>
+            <td v-bind:style="getColor(coin.quote.USD.percent_change_1h)">
+              <span v-if="coin.quote.USD.percent_change_1h > 0">+</span>{{ coin.quote.USD.percent_change_1h }}%
+            </td>
+            <td v-bind:style="getColor(coin.quote.USD.percent_change_24h)">
+              <span v-if="coin.quote.USD.percent_change_24h > 0">+</span>{{ coin.quote.USD.percent_change_24h }}%
+            </td>
+            <td v-bind:style="getColor(coin.quote.USD.percent_change_7d)">
+              <span v-if="coin.quote.USD.percent_change_7d > 0">+</span>{{ coin.quote.USD.percent_change_7d }}%
+            </td>
+            <td>{{ coin.quote.USD.market_cap | currency }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+</div>
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/vue"></script>
+ <script src="application/js/vue2-filters.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <script src="application/js/app.js"></script>
 </body>
 </html>
